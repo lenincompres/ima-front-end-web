@@ -7,7 +7,7 @@ While this course is geared towards Tisch IMA students it will be open to all NY
 * New York University
 * Tisch School of the Arts
 * Front-End Web
-* Course Syllabus
+* [Course Syllabus](https://github.com/lenincompres/ima-front-end-web/wiki)
 * IMNY-UT 228 / 4 Credits
 * Interactive Media Arts
 * 7/23/2023
