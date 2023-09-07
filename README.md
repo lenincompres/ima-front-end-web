@@ -82,7 +82,9 @@ Class will culminate with final projects. It is expected that these will be both
 
 5% - Students will be expected to document their work on Github. This will involve regular publishing of source code and assignments, using comments and README files as necessary. (Github will be a topic we cover in class.)
 
-5% - At the end of each session, students will need to submit a Ticket to Leave. Please view the Ticket to Leave file in this repo for specific instructions.
+5% - At the end of each session, students will need to submit a Ticket to Leave to the class Slack.
+* List at least 1 thing you learned today in class.
+* What concept(s) confuses you from today’s lecture, discussion, or exercises? (This will give you a clue as to what you should study before the next class.)
 
 Each student will be judged on the quality, experimentation, and improvement that their work shows.
 
