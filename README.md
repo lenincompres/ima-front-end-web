@@ -65,7 +65,7 @@ We will have weekly assignments that are relevant to material from the previous 
 * Instances where you achieved clarity, i.e. understood something or felt pieces of knowledge falling into place towards a greater understanding.
 * Instances where you did NOT achieve clarity and why. What can you do to aid your understanding?
 * Connections you made among the week’s readings, lectures, class activities, homework assignments, etc.
-* Include links to your web pages, source codes or layout files (Codepen, Figma, Github, P5 Editor, etc.).
+* Links to any web page, source code or layout files you created (Codepen, Figma, Github, P5 Editor, etc.).
 
 Add the link to your logs to the [class list](https://github.com/lenincompres/ima-front-end-web/wiki) under your name. Ask the instructor or GA for access, if you are unable to edit this page. 
 
