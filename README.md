@@ -60,7 +60,7 @@ Grades for the course will follow the standard A through F letter grading system
 
 ### Regular Assignments 30%
 
-We will have weekly assignments that are relevant to material from the previous class. Most assignments will include a Learning Log, where you will be asked to provide some assessment of your clarity on a topic after doing a tutorial. Please write on your Learning Logs (a personal blog or documementation) . You can create your logs on Github, Notion, Wordpress, even Google docs, if you prefer. Here are somethings to write in your weekly logs:
+We will have weekly assignments that are relevant to material from the previous class. Most assignments will include a Learning Log, where you will be asked to provide some assessment of your clarity on a topic after doing a tutorial. Please write on your Learning Logs (a personal blog or documentation) . You can create your logs on Github, Notion, Wordpress, even Google docs, if you prefer. Here are somethings to write in your weekly logs:
 * Identify (name, URL, sections, etc.) at least one tutorial that you did, and respond to the following.
 * Instances where you achieved clarity, i.e. understood something or felt pieces of knowledge falling into place towards a greater understanding.
 * Instances where you did NOT achieve clarity and why. What can you do to aid your understanding?
