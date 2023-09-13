@@ -60,7 +60,12 @@ Grades for the course will follow the standard A through F letter grading system
 
 ### Regular Assignments 30%
 
-We will have weekly assignments that are relevant to material from the previous class. Most assignments will include a Learning Log, where you will be asked to provide some assessment of your clarity on a topic after doing a tutorial. Please refer to the Learning Logs file in this repository for more instructions.
+We will have weekly assignments that are relevant to material from the previous class. Most assignments will include a Learning Log, where you will be asked to provide some assessment of your clarity on a topic after doing a tutorial. Please write on your Learning Logs (a personal blog or documementation) . You can create your logs on Github, Notion, Wordpress, even Google docs, if you prefer. Here are somethings to write in your weekly logs:
+* Identify (name, URL, sections, etc.) at least one tutorial that you did, and respond to the following.
+* Instances where you achieved clarity, i.e. understood something or felt pieces of knowledge falling into place towards a greater understanding.
+* Instances where you did NOT achieve clarity and why. What can you do to aid your understanding?
+* Connections you made among the week’s readings, lectures, class activities, homework assignments, etc.
+Make sure to add the link to your logs to the [class list](https://github.com/lenincompres/ima-front-end-web/wiki) under your name. Ask the instructor or GA for access, if you are unable to edit this page. 
 
 Each assignment is due by the next class meeting after they are assigned unless stated otherwise. It is expected that you will spend 6 to 8 hours a week on the class outside of class itself. This will include reviewing material, reading, watching video, completing assignments and so on. Please budget your time accordingly.
 
