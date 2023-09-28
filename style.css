@@ -57,3 +57,20 @@ aside {
   flex: 1;
   margin: 0 10px;
 }
+
+
+#nav-button {
+  display: none;
+}
+
+@media (max-height: 680px), screen and (orientation: portrait) {
+
+  header nav ul {
+    flex-direction: column;
+  }
+
+  #nav-button {
+    display: block;
+  }
+
+}
