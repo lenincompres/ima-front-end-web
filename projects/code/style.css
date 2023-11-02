@@ -1,0 +1,72 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: lightgray;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+header, footer {
+  margin: 1em;
+}
+
+#tableTopMain {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1em;
+  width: 34em;
+  background-color: tan;
+  margin: 1em;
+}
+
+.card {
+  font-family: fantasy;
+  background-color: white;
+  width: 3em;
+  height: 4em;
+  margin: 0.25em;
+  padding-top: 1.25em;
+  box-shadow: 1px 1px 3px black;
+  border-radius: 0.3em;
+  -webkit-border-radius: 0.3em;
+  -moz-border-radius: 0.3em;
+  -ms-border-radius: 0.3em;
+  -o-border-radius: 0.3em;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+}
+
+.card-back {
+  background-color: steelblue;
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+}
+
+.card-back>b{
+  display: none;
+}
+
+button {
+  padding: 0.5em 1em;
+  background-color: royalblue;
+  color: white;
+  border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -ms-border-radius: 0.5em;
+  -o-border-radius: 0.5em;
+}

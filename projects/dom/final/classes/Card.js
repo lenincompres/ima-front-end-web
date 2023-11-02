@@ -1,3 +1,5 @@
+import Aux from "./Aux.js";
+
 export class Card {
 
   constructor(char, suit, onclick = () => null) {
@@ -12,12 +14,12 @@ export class Card {
     // JackRabbits coloring
     this.color = Card.SUIT_COLOR[suit];
 
-    this.element = document.createElement("div");
+    this.faceElement = DOM.set({
+      color: this.color,
+      p: this.char + this.suit,
+    }, "div");
 
-    this.faceElement = document.createElement("div");
-
-    // use DOM.js to set the element
-    this.element.set({
+    this.element = DOM.set({
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -34,37 +36,31 @@ export class Card {
       draggable: true,
       div: this.faceElement,
       onclick: e => this.onclick(),
-    });
+    }, "div");
 
-    this.faceElement.set({
-      color: this.color,
-      p: this.char + this.suit,
-    });
   }
 
   show() {
     if (this.isHidden === false) return;
     this.faceElement.style.display = "block";
-    this.element.style.backgroundColor = "white";
+    this.element.style.backgroundColor = Aux.color.light;
     this.isHidden = false;
   }
 
   hide() {
     if (this.isHidden === true) return;
     this.faceElement.style.display = "none";
-    this.element.style.backgroundColor = "steelblue";
+    this.element.style.backgroundColor = Aux.color.accent;
     this.isHidden = true;
   }
 
   async flip() {
+    this.element.style.transition = "0.1s";
     this.element.style.transform = "rotateY(90deg)";
-    let wasHidden = this.isHidden;
-    this.isHidden = undefined;
-    return new Promise(resolve => setTimeout(() => {
-      wasHidden ? this.show() : this.hide();
-      this.element.style.transform = "rotateY(0)";
-      resolve();
-    }, 100));
+    let promise = await Aux.timeoutPromise(100);
+    this.isHidden ? this.show() : this.hide();
+    this.element.style.transform = "rotateY(0)";
+    return promise;
   }
 
   static CHARS = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
