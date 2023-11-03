@@ -1,35 +1,49 @@
 import Aux from "./classes/Aux.js";
-import Card from "./classes/Card.js";
+import Deck from "./classes/Deck.js";
+import Hand from "./classes/Hand.js";
 
 // DOM elements
 
-let isShowingAll = true;
+const COLOR = {
+  base: "lightGray",
+  light: "white",
+  dark: "#222",
+  neutral: "#a97",
+  accent: "#46a",
+}
 
-let flipAllBtn = DOM.set({
-  text: "Flip all",
-  onclick: () => flipCards(!isShowingAll),
-}, "button");
+const CSS = {
+  h: {
+    fontFamily: "serif",
+  },
+  button: {
+    backgroundColor: COLOR.accent,
+    color: COLOR.light,
+    margin: "0 0.25em",
+    fontSize: "1.2em",
+    borderColor: COLOR.accent,
+    boxShadow: "none",
+    hover: {
+      borderColor: COLOR.light,
+    },
+    __disabled: {
+      backgroundColor: "transparent",
+      borderColor: COLOR.accent,
+      color: COLOR.accent,
+      opacity: 0.6,
+    },
+    active: {
+      borderColor: COLOR.base,
+    }
+  },
+}
 
-let shuffleBtn = DOM.set({
-  text: "Shuffle",
-  onclick: () => shuffleCards(),
-}, "button");
+const cardDeck = new Deck({
+  margin: "0.2em",
+  backgroundColor: COLOR.accent,
+}, true);
 
-let randomInput = DOM.set({
-  type: "number",
-  margin: "0 -0.8em 0 .5em",
-  width: "3em",
-  min: 1,
-  max: 10,
-  value: 1,
-  onclick: e => e.stopPropagation(),
-}, "input");
-
-let randomFlipBtn = DOM.set({
-  text: "Random",
-  input: randomInput,
-  onclick: () => showRandom(randomInput.value),
-}, "button");
+const cardHand1 = new Hand();
 
 
 // DOM setting
@@ -38,11 +52,11 @@ DOM.set({
   head: {
     title: "Deck of Cards",
   },
-  css: Aux.css,
-  color: Aux.color.dark,
+  css: CSS,
+  color: COLOR.dark,
   display: "flex",
   flexDirection: "column",
-  backgroundColor: Aux.color.base,
+  backgroundColor: COLOR.base,
   header: {
     display: "flex",
     alignItems: "center",
@@ -50,97 +64,68 @@ DOM.set({
     padding: "1em",
     H1: "Deck of Cards",
     p: "Click the cards to flip them.",
-    menu: {
-      marginTop: "1em",
-      display: "flex",
-      button: [flipAllBtn, shuffleBtn, randomFlipBtn],
-    }
   },
   main: {
-    id: "tableElt",
-    backgroundColor: Aux.color.neutral,
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    margin: "0 auto",
-    padding: "1em",
-    width: "46em",
-    minHeight: "40em",
+    margin: "0 auto 1em",
+    width: "fit-content",
+    header: {
+      padding: "0.5em",
+      menu: {
+        marginTop: "1em",
+        display: "flex",
+        justifyContent: "center",
+        button: {
+          class: {
+            disabled: cardDeck._idle.as(true, false),
+          },
+          content: [{
+            text: "Flip all",
+            onclick: () => cardDeck.flipCards(),
+          }, {
+            text: "Show all",
+            onclick: () => cardDeck.flipCards(true),
+          }, {
+            text: "Hide all",
+            onclick: () => cardDeck.flipCards(false),
+          }, {
+            text: "Shuffle",
+            onclick: () => cardDeck.shuffleCards(),
+          }, {
+            text: "Random",
+            onclick: () => cardDeck.showRandom(randomInput.value),
+          }]
+        },
+        input: {
+          id: "randomInput",
+          type: "number",
+          margin: "0 -0.8em 0 .5em",
+          width: "3em",
+          min: 1,
+          max: 10,
+          value: 1,
+        },
+      }
+    },
+    main: cardDeck.elt.set({
+      fontFamily: "fantasy",
+      fontSize: "1.5em",
+      backgroundColor: COLOR.neutral,
+      padding: "0.5em",
+      width: "28em",
+    })
   },
+  section: cardHand1.elt.set({
+    fontFamily: "fantasy",
+    fontSize: "1.5em",
+    backgroundColor: COLOR.neutral,
+    margin: "0 auto 1em",
+    padding: "0.5em",
+    width: "28em",
+    minHeight: "5em",
+  }),
   footer: {
     textAlign: "center",
     padding: "1em",
     p: "Created by Lenin Compres",
   },
 });
-
-// SETUP CARDS
-
-// initializes cards array with two joker cards
-let cardDeck = [
-  new Card("jk", Card.SUITS[0]),
-  new Card("jk", Card.SUITS[1]),
-];
-
-// adds the rest of the cards
-for (let suit of Card.SUITS) {
-  for (let char of Card.CHARS) {
-    let card = new Card(char, suit);
-    cardDeck.push(card);
-  }
-}
-
-// adds cards to the table
-cardDeck.forEach((card, i) => {
-  card.onclick = () => card.flip();
-  card.index = i;
-  tableElt.appendChild(card.element);
-});
-
-// ACTIONS
-
-function enableBtns(enable = true) {
-  let menuBtns = [shuffleBtn, flipAllBtn, randomFlipBtn];
-  for(let button of menuBtns){
-    if (enable) button.removeAttribute("disabled");
-    else button.setAttribute("disabled", true);
-  };
-}
-
-async function flipCards(toShow = true, delay = 15, cardsToFlip) {
-  enableBtns(false);
-  if (!cardsToFlip) {
-    cardsToFlip = cardDeck;
-    isShowingAll = toShow;
-  }
-  cardsToFlip = cardsToFlip.filter(card => card.isHidden === toShow);
-  if (!cardsToFlip.length) {
-    return enableBtns();
-  }
-  Aux.randomizeArray(cardsToFlip);
-  let lastCard = cardsToFlip.pop();
-  let waitTime = 0;
-  cardsToFlip.forEach(card => {
-    setTimeout(() => card.flip(), waitTime);
-    waitTime += delay;
-  });
-  waitTime += delay;
-  let promise = await Aux.timeoutPromise(waitTime, () => lastCard.flip());
-  enableBtns();
-  return promise;
-};
-
-async function shuffleCards() {
-  await flipCards(true, 5);
-  Aux.randomizeArray(cardDeck);
-  cardDeck.forEach(card => tableElt.appendChild(card.element));
-  return flipCards(false, 5);
-};
-
-async function showRandom(ammount) {
-  let hiddenCards = cardDeck.filter(card => card.isHidden);
-  if (!hiddenCards.length) return;
-  Aux.randomizeArray(hiddenCards);
-  let cardsToFlip = hiddenCards.slice(0, ammount);
-  return flipCards(true, 15, cardsToFlip);
-}
