@@ -18,6 +18,17 @@ header, footer {
   margin: 1em;
 }
 
+button {
+  padding: 0.5em 1em;
+  background-color: royalblue;
+  color: white;
+  border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -ms-border-radius: 0.5em;
+  -o-border-radius: 0.5em;
+}
+
 #tableTopMain {
   display: flex;
   flex-wrap: wrap;
@@ -58,15 +69,4 @@ header, footer {
 
 .card-back>b{
   display: none;
-}
-
-button {
-  padding: 0.5em 1em;
-  background-color: royalblue;
-  color: white;
-  border-radius: 0.5em;
-  -webkit-border-radius: 0.5em;
-  -moz-border-radius: 0.5em;
-  -ms-border-radius: 0.5em;
-  -o-border-radius: 0.5em;
 }

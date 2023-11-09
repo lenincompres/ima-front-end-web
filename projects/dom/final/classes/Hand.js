@@ -1,12 +1,13 @@
 import Aux from "./Aux.js";
 import Card from "./Card.js";
 
-export class Hand {
-  
-  constructor(){
-    this.cards = [];
+export class Hand extends HTMLElement {
+
+  constructor(...cards) {
+    super();
+    this.cards = cards;
     this._idle = new Binder(true);
-    this.elt = DOM.set({
+    this.set({
       display: "flex",
       flexWrap: "wrap",
       justifyContent: "center",
@@ -14,23 +15,27 @@ export class Hand {
       dragover: e => e.preventDefault(),
       drop: e => {
         e.preventDefault();
-        this.move(window.draggedCard, this);
+        window.draggedCard.move(this);
       },
-    }, "section");
+    });
+    this.cards.forEach(card => this.add(card));
   }
 
-  move(card, hand) {
-    if(card.hand === hand) return;
-    if (!hand) hand = this;
-    card.hand.remove(card);
-    card.hand = hand;
-    this.add(card);
-    return card;
+  add(card, prev) {
+    if (prev) {
+      this.cards.splice(this.cards.indexOf(prev), 0, card);
+      this.insertBefore(card, prev);
+    } else {
+      this.cards.push(card);
+      this.appendChild(card);
+    }
+    card.hand = this;
+    return this;
   }
 
   remove(card) {
     this.cards = this.cards.filter(c => c !== card);
-    console.log(this.cards, card);
+    this.removeChild(card);
     return card;
   }
 
@@ -42,9 +47,10 @@ export class Hand {
     return this._idle.value;
   }
 
-  async flipCards(toShow, delay = 15, cardsToFlip) {
+  async flipCards(toShow, cardsToFlip, delay) {
     this.idle = false;
     if (!cardsToFlip) cardsToFlip = this.cards.map(card => card);
+    if(delay === undefined) delay = 300 / cardsToFlip.length;
     if (toShow !== undefined) cardsToFlip = cardsToFlip.filter(card => card.isBack === toShow);
     if (!cardsToFlip.length) {
       return this.idle = true;
@@ -62,39 +68,25 @@ export class Hand {
     return promise;
   };
 
-  add(card) {
-    this.cards.push(card);
-    this.elt.appendChild(card.elt);
-    return this.cards;
-  }
-
-  addCard(char, suit) {
-    let card = new Card(char, suit, this.backColor, this.isJK);
-    this.cards.push(card);
-    this.elt.appendChild(card.elt);
-    card.hand = this;
-    card.onclick = () => card.flip();
-    card.elt.set(this.cardStyle, "style");
-    return card;
-  }
-
   async shuffleCards(delay = 100) {
     this.cards.forEach(card => card.blink(delay));
     setTimeout(() => {
       Aux.randomizeArray(this.cards);
-      this.cards.forEach(card => this.elt.appendChild(card.elt));
+      this.cards.forEach(card => this.appendChild(card));
     }, 0.5 * delay);
     return await Aux.timeoutPromise(delay);
   };
 
   async showRandom(ammount) {
-    await this.flipCards(false, 5);
+    await this.flipCards(false);
     Aux.randomizeArray(this.cards);
     let cardsToFlip = this.cards.slice(0, ammount);
     await this.shuffleCards();
-    return this.flipCards(true, 15, cardsToFlip);
+    return this.flipCards(true, cardsToFlip);
   }
 
 }
+
+customElements.define("card-hand", Hand);
 
 export default Hand;
