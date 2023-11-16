@@ -1,57 +1,60 @@
 // A class that extends and defines a nw type of HTML Element
 
-/* 
-  This is an example of a variable that is used in this code file, 
-  but is not exported to be used elsewhere.
-*/
-const ColorTable = {
-  Fruits: 'orange',
-  Nuts: 'tan',
-  Nuts: 'tan',
-  Vegetables: 'limegreen',
-  Teas: 'olive',
-  Gourds: 'yellowgreen',
-  Pulses: 'darkkhaki',
-  Soy: 'beige',
-  Confectioneries: 'orchid',
-  'Baking goods': 'pink',
-  'Herbs and Spices': 'goldenrod',
-  'Cereals and cereal products': 'wheat',
-  'Coffee and coffee products': 'indianred',
-  'Cocoa and cocoa products': 'indianred',
-  'Aquatic foods': 'aqua',
-  'Animal foods': 'crimson',
-  'Milk and milk products': 'lightsteelblue',
-  Beverages: 'rosybrown',
-};
 
 export class FoodItem extends HTMLElement {
 
-  constructor(name, sName, group) {
+  constructor(name, scienceName, group) {
     super();
-
-    // The Binder class is also part od the DOM.js library
-    this.isSelectedBinder = new Binder(false);
+    this.group = group.split(' ')[0];
+    this.selected = false;
+    if(scienceName == 'NULL') scienceName = '';
 
     this.set({
-      backgroundColor: ColorTable[group],
-      border: 'solid 0.25em',
-      borderColor: this.isSelectedBinder.as('transparent', 'black'),
-      h1: name,
-      i: sName,
-      p: group,
-      onclick: () => this.toggle(),
+      backgroundColor: ColorMap[this.group],
+      h3: name.replaceAll('(', '<small>(').replaceAll(')', ')</small>'),
+      i: scienceName,
     });
+
+    this.onclick = () => this.toggle();
 
   }
 
   toggle(){
-    this.isSelectedBinder.value = !this.isSelectedBinder.value;
+    this.selected = !this.selected;
+    if(this.selected) this.classList.add('selected');
+    else this.classList.remove('selected');
   }
 
 }
 
-// Classes that extend HTMLElement must also be define with the tag they will use in the DOM
+// Classes that extend HTMLElement must be define with the tag they'll use in the DOM
 customElements.define("food-item", FoodItem);
 
 export default FoodItem;
+
+
+/* 
+  ColorTable is an example of a variable that is used in this code file, 
+  but is not default export to be used elsewhere.
+*/
+export const ColorMap = {
+  Coffee: 'sienna',
+  Cocoa: 'chocolate',
+  Nuts: 'burlywood',
+  Cereals: 'wheat',
+  Soy: 'palegoldenrod',
+  Pulses: 'darkkhaki',
+  Teas: 'yellowgreen',
+  Vegetables: 'limegreen',
+  Gourds: 'gold',
+  Herbs: 'orange',
+  Fruits: 'tomato',
+  Aquatic: 'lightcoral',
+  Animal: 'indianred',
+  Milk: 'powderblue',
+  Beverages: 'lavender',
+  Snack: 'mediumpurple',
+  Confectioneries: 'violet',
+  Baking: 'lightpink',
+  Dishes: 'rosybrown',
+};

@@ -6,42 +6,40 @@
 
 body {
   display: flex;
-  background-color: lightgray;
+  background-color: dimgray;
   flex-direction: column;
   justify-content: stretch;
-  max-width: 800px;
+  max-width: 60em;
   margin: 0 auto;
   padding: 1em;
 }
 
 a {
-  color: aquamarine;
+  color: blue;
 }
 
-body>header{
-  background-color: black;
+body>header {
+  background-color: lightgray;
   padding: 0.5em;
-  color: white;
   text-align: center;
 }
 
-body>main{
+#mainContainer {
   display: flex;
+  justify-content: center;
+  height: fit-content;
   background-color: white;
   flex-wrap: wrap;
-  min-height: 60vh;
   padding: 1em;
-}
-
-#itemsList{
-  display: flex;
-  flex-wrap: wrap;
 }
 
 food-item {
+  text-align: center;
   background-color: lightgray;
   margin: 0.5em;
   padding: 1em;
+  border: solid 0.3em transparent;
+  cursor: pointer; 
   border-radius: 1em;
   -webkit-border-radius: 1em;
   -moz-border-radius: 1em;
@@ -49,8 +47,28 @@ food-item {
   -o-border-radius: 1em;
 }
 
+food-item.selected {
+  color: blue;
+  border-color: blue;
+  box-shadow: 0 0 1em blue inset;
+}
 
-body>footer{
+menu>button {
+  overflow: hidden;
+  width: 4em;
+  height: 1.8em;
+  margin: 0.2em;
+  padding: 0.2em;
+  box-shadow: 1px 1px 3px black;
+}
+
+menu>button.chosen {
+  box-shadow: 1px 1px 3px navy inset;
+  color: navy;
+}
+
+
+body>footer {
   background-color: black;
   color: white;
   padding: 0.5em;
