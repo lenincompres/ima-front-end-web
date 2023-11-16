@@ -20,22 +20,19 @@ export function parseCSVData(data) {
 
   let items = [];
   for (let row of rows) {
-    
-    // exception for commas inside quotation marks
+    // exception for commas inside quotation marks (see data source)
     while(row.includes('",')){
       let quoteEnd = row.indexOf('",');
       let quote = row.substring(0, quoteEnd).replaceAll(',','`');
       row = quote.replace('"', '') + row.substring(quoteEnd + 1);
     }
     
-    //
     let cols = row.split(',');
     let item = {};
     for (let i = 0; i < cols.length; i += 1) {
       let key = keys[i];
       let value = cols[i];
-      item[key] = value.replaceAll('`', ','); 
-      // convert ` found in the exception back to , 
+      item[key] = value.replaceAll('`', ','); // convert ` found in the exception back to , 
     }
     items.push(item);
   }

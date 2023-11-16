@@ -31,12 +31,12 @@ DOM.set({
   }
 });
 
+
+
 let items = [];
 loadFoodItems();
-
 async function loadFoodItems() {
   let data = await loadTextFile('generic-food.csv');
-
   items = parseCSVData(data).map(item =>
     new FoodItem(
       item.FOOD_NAME,
@@ -46,19 +46,20 @@ async function loadFoodItems() {
   );
   items.sort(() => Math.random() - 0.5);
   mainContainer.set(items);
-
-  // set up the filter buttons
-  for (let [key, value] of Object.entries(ColorMap)) {
-    let button = filterMenu.set({
-      text: key,
-      backgroundColor: value,
-      value: key,
-    }, 'button');
-    button.onclick = () => setFilter(button);
-  }
-
 }
 
+
+
+
+// set up the filter buttons
+for (let [key, value] of Object.entries(ColorMap)) {
+  let button = filterMenu.set({
+    backgroundColor: value,
+    text: key,
+    value: key,
+  }, 'button');
+  button.onclick = () => setFilter(button);
+}
 
 let selectedButton;
 function setFilter(button) {
@@ -66,15 +67,14 @@ function setFilter(button) {
     selectedButton.classList.remove("chosen");
   }
   if (selectedButton === button) {
-    selectedButton.classList.remove("chosen");
     items.forEach(item => item.style.display = "block");
     selectedButton = undefined;
     return;
   }
   for (let item of items) {
-    let hidden = item.group.includes(button.value);
-    item.style.display = hidden ? "none" : "block";
+    let hasFilter = item.group.startsWith(button.value);
+    item.style.display = hasFilter ? "block" : "none";
   }
+  button.classList.add("chosen");
   selectedButton = button;
-  selectedButton.classList.add("chosen");
 }
