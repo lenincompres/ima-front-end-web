@@ -1,3 +1,4 @@
+import FilterButton from './FilterButton.js';
 import FoodItem, {
   ColorMap
 } from './FoodItem.js';
@@ -21,6 +22,7 @@ DOM.set({
       margin: '1em',
       width: '5em',
       id: 'filterMenu',
+      h3: 'Filter',
     },
     section: {
       id: 'mainContainer',
@@ -50,31 +52,28 @@ async function loadFoodItems() {
 
 
 
-
 // set up the filter buttons
 for (let [key, value] of Object.entries(ColorMap)) {
-  let button = filterMenu.set({
-    backgroundColor: value,
-    text: key,
-    value: key,
-  }, 'button');
-  button.onclick = () => setFilter(button);
+  let filteButton = new FilterButton(key, value, fb => setFilter(fb));
+  filterMenu.appendChild(filteButton);
 }
 
+// method that handles the filtering of items
 let selectedButton;
 function setFilter(button) {
   if (selectedButton) {
-    selectedButton.classList.remove("chosen");
+    selectedButton.selected = false;
   }
   if (selectedButton === button) {
-    items.forEach(item => item.style.display = "block");
+    // deselect
+    items.forEach(item => item.hidden = false);
     selectedButton = undefined;
     return;
   }
   for (let item of items) {
     let hasFilter = item.group.startsWith(button.value);
-    item.style.display = hasFilter ? "block" : "none";
+    item.hidden = !hasFilter;
   }
-  button.classList.add("chosen");
+  button.selected = true;
   selectedButton = button;
 }

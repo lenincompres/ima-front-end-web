@@ -1,6 +1,4 @@
-// A class that extends and defines a nw type of HTML Element
-
-
+// A class that extends and defines a new type of HTML Element
 export class FoodItem extends HTMLElement {
 
   constructor(name, scienceName, group) {
@@ -16,7 +14,6 @@ export class FoodItem extends HTMLElement {
     });
 
     this.onclick = () => this.toggle();
-
   }
 
   toggle(){
@@ -25,11 +22,14 @@ export class FoodItem extends HTMLElement {
     else this.classList.remove('selected');
   }
 
+  set hidden(value){
+    this.style.display = value ? "none" : "block";
+  }
+
 }
 
 // Classes that extend HTMLElement must be define with the tag they'll use in the DOM
-customElements.define("food-item", FoodItem);
-
+customElements.define('food-item', FoodItem);
 export default FoodItem;
 
 
@@ -38,23 +38,23 @@ export default FoodItem;
   but is not default export to be used elsewhere.
 */
 export const ColorMap = {
+  Dishes: 'rosybrown',
   Coffee: 'sienna',
   Cocoa: 'chocolate',
-  Nuts: 'burlywood',
-  Cereals: 'wheat',
-  Soy: 'palegoldenrod',
+  Nuts: 'tan',
+  Cereals: 'palegoldenrod',
+  Soy: 'khaki',
   Pulses: 'darkkhaki',
   Teas: 'yellowgreen',
   Vegetables: 'limegreen',
   Gourds: 'gold',
   Herbs: 'orange',
   Fruits: 'tomato',
-  Aquatic: 'lightcoral',
+  Aquatic: 'salmon',
   Animal: 'indianred',
-  Milk: 'powderblue',
-  Beverages: 'lavender',
-  Snack: 'mediumpurple',
+  Baking: 'palevioletred',
   Confectioneries: 'violet',
-  Baking: 'lightpink',
-  Dishes: 'rosybrown',
+  Snack: 'mediumpurple',
+  Beverages: 'lightsteelblue',
+  Milk: 'powderblue',
 };

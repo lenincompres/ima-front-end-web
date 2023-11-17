@@ -53,7 +53,7 @@ food-item.selected {
   box-shadow: 0 0 1em blue inset;
 }
 
-menu>button {
+.filter-button {
   overflow: hidden;
   width: 4em;
   height: 1.8em;
@@ -62,7 +62,7 @@ menu>button {
   box-shadow: 1px 1px 3px black;
 }
 
-menu>button.chosen {
+.filter-button.chosen {
   box-shadow: 1px 1px 3px navy inset;
   color: navy;
 }
