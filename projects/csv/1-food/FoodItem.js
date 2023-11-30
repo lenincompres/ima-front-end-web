@@ -3,14 +3,17 @@ export class FoodItem extends HTMLElement {
 
   constructor(name, scienceName, group) {
     super();
-    this.group = group.split(' ')[0];
+    this.group = group.split(' ').shift(); // this gets the first word
     this.selected = false;
     if(scienceName == 'NULL') scienceName = '';
 
+    let formattedName = name.replaceAll('(', '<small>(').replaceAll(')', ')</small>');
+    // this makes text in parenthesis smaller
+
     this.set({
-      backgroundColor: ColorMap[this.group],
-      h3: name.replaceAll('(', '<small>(').replaceAll(')', ')</small>'),
-      i: scienceName,
+      backgroundColor: FoodItem.COLOR_MAP[this.group],
+      h3: formattedName,
+      p: scienceName,
     });
 
     this.onclick = () => this.toggle();
@@ -26,9 +29,34 @@ export class FoodItem extends HTMLElement {
     this.style.display = value ? "none" : "block";
   }
 
+  static COLOR_MAP = {
+    Coffee: 'sienna',
+    Cocoa: 'chocolate',
+    Nuts: 'tan',
+    Cereals: 'wheat',
+    Soy: 'khaki',
+    Pulses: 'darkkhaki',
+    Teas: 'yellowgreen',
+    Vegetables: 'limegreen',
+    Gourds: 'gold',
+    Herbs: 'orange',
+    Fruits: 'tomato',
+    Aquatic: 'salmon',
+    Animal: 'indianred',
+    Dishes: 'rosybrown',
+    Baking: 'palevioletred',
+    Confectioneries: 'violet',
+    Snack: 'mediumpurple',
+    Beverages: 'lightsteelblue',
+    Milk: 'powderblue',
+  };
+
 }
 
-// Classes that extend HTMLElement must be define with the tag they'll use in the DOM
+/* 
+  Classes that extend HTMLElement must be defined
+  with the tag they'll use in the DOM
+*/
 customElements.define('food-item', FoodItem);
 export default FoodItem;
 
@@ -37,24 +65,3 @@ export default FoodItem;
   ColorTable is an example of a variable that is used in this code file, 
   but is not default export to be used elsewhere.
 */
-export const ColorMap = {
-  Dishes: 'rosybrown',
-  Coffee: 'sienna',
-  Cocoa: 'chocolate',
-  Nuts: 'tan',
-  Cereals: 'palegoldenrod',
-  Soy: 'khaki',
-  Pulses: 'darkkhaki',
-  Teas: 'yellowgreen',
-  Vegetables: 'limegreen',
-  Gourds: 'gold',
-  Herbs: 'orange',
-  Fruits: 'tomato',
-  Aquatic: 'salmon',
-  Animal: 'indianred',
-  Baking: 'palevioletred',
-  Confectioneries: 'violet',
-  Snack: 'mediumpurple',
-  Beverages: 'lightsteelblue',
-  Milk: 'powderblue',
-};

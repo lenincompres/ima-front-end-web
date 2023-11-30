@@ -1,14 +1,20 @@
 import FilterButton from './FilterButton.js';
-import FoodItem, {
-  ColorMap
-} from './FoodItem.js';
+import FoodItem from './FoodItem.js';
 import {
   loadTextFile,
   parseCSVData
 } from './myLib.js';
 
-// sets up the DOM structure using DOM.js library
-// the set function insterpretes JS objects to create elements and modified their properties
+/*
+  This app will help you learn about:
+  parsing CSVs, extending HTMLElements, and using DOM.js
+*/
+
+/* 
+  Use DOM.set to structure the DOM (DOM.js library)
+  This method insterpretes a JS objects to create 
+  HTML elements and to modified their properties
+*/
 DOM.set({
   title: "Generic Food",
   header: {
@@ -19,8 +25,6 @@ DOM.set({
     display: 'flex',
     backgroundColor: 'white',
     menu: {
-      margin: '1em',
-      width: '5em',
       id: 'filterMenu',
       h3: 'Filter',
     },
@@ -29,51 +33,59 @@ DOM.set({
     }
   },
   footer: {
-    p: 'Front-End Web: CSV parsing, HTMLElement class, DOM.js',
+    p: 'Front-End Web: parsing CSVs, extending HTMLElements, and using DOM.js',
   }
 });
 
+// Load items from the CSV and add them to the mainContainer
 
+let foodItems = [];
 
-let items = [];
-loadFoodItems();
 async function loadFoodItems() {
   let data = await loadTextFile('generic-food.csv');
-  items = parseCSVData(data).map(item =>
+  foodItems = parseCSVData(data).map(item =>
     new FoodItem(
       item.FOOD_NAME,
       item.SCIENTIFIC_NAME,
       item.GROUP,
     )
   );
-  items.sort(() => Math.random() - 0.5);
-  mainContainer.set(items);
+  foodItems.sort(() => Math.random() - 0.5);
+  mainContainer.set(foodItems);
+  /*
+    This .set() method is the same as DOM.set() of DOM.js library,
+    but applied to (or invoked from) an element instead of the whole DOM,
+    so the elements will pe appended there.
+  */
 }
 
+loadFoodItems();
 
 
-// set up the filter buttons
-for (let [key, value] of Object.entries(ColorMap)) {
-  let filteButton = new FilterButton(key, value, fb => setFilter(fb));
-  filterMenu.appendChild(filteButton);
+
+// Creates and sets up the filter buttons
+let filterValues = Object.entries(FoodItem.COLOR_MAP); 
+// Object.entries() turns an object into and array of pairs of keys and values
+for (let [key, value] of filterValues) {
+  let filterButton = new FilterButton(key, value);
+  filterButton.onclick = () => setFilter(filterButton);
+  filterMenu.set(filterButton);
 }
-
 // method that handles the filtering of items
-let selectedButton;
+let previousFilter;
 function setFilter(button) {
-  if (selectedButton) {
-    selectedButton.selected = false;
+  if (previousFilter) {
+    previousFilter.selected = false;
   }
-  if (selectedButton === button) {
-    // deselect
-    items.forEach(item => item.hidden = false);
-    selectedButton = undefined;
+  if (previousFilter === button) { // deselect
+    foodItems.forEach(item => item.hidden = false);
+    previousFilter = undefined;
     return;
   }
-  for (let item of items) {
+  for (let item of foodItems) {
     let hasFilter = item.group.startsWith(button.value);
     item.hidden = !hasFilter;
   }
   button.selected = true;
-  selectedButton = button;
+  previousFilter = button;
 }

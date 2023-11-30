@@ -33,6 +33,13 @@ body>header {
   padding: 1em;
 }
 
+#filterMenu{
+  margin: 1em;
+  width: 6em;
+  display: flex;
+  flex-direction: column;
+}
+
 food-item {
   text-align: center;
   background-color: lightgray;
@@ -53,16 +60,23 @@ food-item.selected {
   box-shadow: 0 0 1em blue inset;
 }
 
-.filter-button {
+filter-button {
+  text-align: center;
+  cursor: pointer;
   overflow: hidden;
-  width: 4em;
-  height: 1.8em;
-  margin: 0.2em;
-  padding: 0.2em;
+  width: 6em;
+  margin: 0.25em 0;
+  padding: 0.5em 0.8em;
+  text-overflow: ellipsis;
   box-shadow: 1px 1px 3px black;
+  border-radius: 1em;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  -ms-border-radius: 1em;
+  -o-border-radius: 1em;
 }
 
-.filter-button.chosen {
+filter-button.selected {
   box-shadow: 1px 1px 3px navy inset;
   color: navy;
 }
