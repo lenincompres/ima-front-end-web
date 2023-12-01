@@ -1,0 +1,45 @@
+#progress-bar {
+  text-align: right;
+  overflow: hidden;
+  background-color: aquamarine;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+}
+
+zig-zagger {
+  text-align: center;
+  padding: 1em;
+  transition: 0.2s;
+  position: fixed;
+  color: aquamarine;
+  background-color: teal;
+  opacity: 0.7;
+  z-index: 0;
+  user-select: none;
+  /* it is not selectable */
+  pointer-events: none;
+  /* doesnt trigger mouse events */
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+}
+
+zig-zagger.active {
+  opacity: 1;
+  z-index: 10;
+  cursor: pointer;
+  pointer-events: all;
+  /* triggers mouse events */
+  color: peachpuff;
+  background-color: crimson;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
