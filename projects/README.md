@@ -1,1 +1,1 @@
-# Test
+# Code Samples for the class
