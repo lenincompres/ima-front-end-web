@@ -25,6 +25,7 @@ const cardHand1 = new Hand();
 
 DOM.set({
   title: "Deck of Cards",
+
   css: {
     h: {
       fontFamily: "serif",
@@ -39,21 +40,24 @@ DOM.set({
       hover: {
         borderColor: COLOR.light,
       },
-      __disabled: {
-        backgroundColor: "transparent",
-        borderColor: COLOR.accent,
-        color: COLOR.accent,
-        opacity: 0.6,
-      },
       active: {
         borderColor: COLOR.base,
       }
     },
+    button_disabled: {
+      backgroundColor: "transparent",
+      borderColor: COLOR.accent,
+      color: COLOR.accent,
+      opacity: 0.6,
+    },
   },
-  color: COLOR.dark,
-  display: "flex",
-  flexDirection: "column",
-  backgroundColor: COLOR.base,
+
+  style: {
+    color: COLOR.dark,
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: COLOR.base,
+  },
 
   header: {
     display: "flex",
@@ -73,27 +77,22 @@ DOM.set({
         marginTop: "1em",
         display: "flex",
         justifyContent: "center",
-        button: {
-          class: {
-            disabled: cardDeck._idle.as(true, false),
-          },
-          content: [{
-            text: "Flip all",
-            onclick: () => cardDeck.flipCards(),
-          }, {
-            text: "Show all",
-            onclick: () => cardDeck.flipCards(true),
-          }, {
-            text: "Hide all",
-            onclick: () => cardDeck.flipCards(false),
-          }, {
-            text: "Shuffle",
-            onclick: () => cardDeck.shuffleCards(),
-          }, {
-            text: "Random",
-            onclick: () => cardDeck.showRandom(randomInput.value),
-          }]
-        },
+        button: [{
+          text: "Flip all",
+          onclick: () => cardDeck.flipCards(),
+        }, {
+          text: "Show all",
+          onclick: () => cardDeck.flipCards(true),
+        }, {
+          text: "Hide all",
+          onclick: () => cardDeck.flipCards(false),
+        }, {
+          text: "Shuffle",
+          onclick: () => cardDeck.shuffleCards(),
+        }, {
+          text: "Random",
+          onclick: () => cardDeck.showRandom(randomInput.value),
+        }],
         input: {
           id: "randomInput",
           type: "number",
@@ -105,27 +104,31 @@ DOM.set({
         },
       }
     },
-    cardDeck: cardDeck.set({
-      fontSize: "1.2em",
-      backgroundColor: COLOR.neutral,
-      margin: "1em auto",
-      padding: "0.5em",
-      maxWidth: "40em",
-    }),
-    cardHand1: cardHand1.set({
-      fontSize: "1.5em",
-      backgroundColor: COLOR.neutral,
-      margin: "1em auto",
-      padding: "0.5em",
-      width: "28em",
-      minHeight: "5em",
-    })
+
+    children: [
+      cardDeck.set({
+        fontSize: "1.2em",
+        backgroundColor: COLOR.neutral,
+        margin: "1em auto",
+        padding: "0.5em",
+        maxWidth: "40em",
+      }), 
+      cardHand1.set({
+        fontSize: "1.5em",
+        backgroundColor: COLOR.neutral,
+        margin: "1em auto",
+        padding: "0.5em",
+        width: "28em",
+        minHeight: "5em",
+      })
+    ],
+
   },
 
   footer: {
     textAlign: "center",
     padding: "1em",
-    p: "Created by Lenin Compres",
+    p: "Created by Lenin Compres using DOM.js",
   }
 
 });

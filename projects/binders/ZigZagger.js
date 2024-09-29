@@ -1,6 +1,7 @@
 export class ZigZagger extends HTMLElement {
 
   constructor(name) {
+    // super invokes the original (HTMLElement) constructor
     super();
 
     // Properties to hold the x and y velocity of the instance
@@ -23,7 +24,7 @@ export class ZigZagger extends HTMLElement {
           // "active" class will toggle with the value of _CAN_MOVE
       },
       h4: name,
-      onclick: () => this.freeze(),
+      click: evt => this.freeze(),
     });
 
     // this creates a loop, executing every 50 miliseconds
@@ -52,8 +53,7 @@ export class ZigZagger extends HTMLElement {
     if (this.canMove) {
       this.x += this.vx;
       this.y += this.vy;
-
-      //accelerates randomly
+      //accelerate randomly
       this.vx += Math.random() - 0.5;
       this.vy += Math.random() - 0.5;
     }

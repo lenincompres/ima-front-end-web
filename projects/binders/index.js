@@ -23,11 +23,10 @@ DOM.set({
   },
   section: {
     id: 'progressBar',
+    text: _FROZEN_PCT,
+    // The section's text will change if the binder value changes
     width: _FROZEN_PCT.as(val => `${val}%`),
-    p: {
-      padding: '0.2em 1em',
-      text: _FROZEN_PCT.as(val => `${val}%`),
-    },
+    // The width also, and formatted as() indicated by the method
   },
   main: {
     id: 'zaggersContainer',
@@ -42,7 +41,9 @@ DOM.set({
 
 // You may also bind properties outside of the set() method
 // Use the binder's bind() method and indicate what element holds the property.
+
 _FROZEN_PCT.bind(document.body, 'backgroundColor', val => `rgba(86,86,104,${val/100})`);
+
 // This bounds the backgroundColor of the document.body and formats the value it accordingly.
 
 
